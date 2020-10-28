@@ -1,0 +1,22 @@
+:host {
+  display: block;
+}
+
+.tag {
+  font-family: 'Roboto', sans-serif;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 10px;
+  line-height: 16px;
+  display: flexbox;
+  width: auto;
+  border: 1px solid #ed676d;
+  border-radius: 4px;
+  padding: 0 4px;
+  color: #ed676d;
+  margin: 2px;
+}
+.tag-highlight {
+  background-color: #ed676d;
+  color: #ffffff;
+}

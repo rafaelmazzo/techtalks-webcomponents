@@ -5,7 +5,19 @@
  * It contains typing information for all components that exist in this project.
  */
 import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
+import { ProductPrice } from "./components/fn-product-card/fn-product-card";
 export namespace Components {
+    interface FnProductCard {
+        "code": string;
+        "image": string;
+        "name": string;
+        "price": ProductPrice;
+        "tags": [];
+    }
+    interface FnTag {
+        "isHighlight": boolean;
+        "nameTag": string;
+    }
     interface MyComponent {
         /**
           * The first name
@@ -22,6 +34,18 @@ export namespace Components {
     }
 }
 declare global {
+    interface HTMLFnProductCardElement extends Components.FnProductCard, HTMLStencilElement {
+    }
+    var HTMLFnProductCardElement: {
+        prototype: HTMLFnProductCardElement;
+        new (): HTMLFnProductCardElement;
+    };
+    interface HTMLFnTagElement extends Components.FnTag, HTMLStencilElement {
+    }
+    var HTMLFnTagElement: {
+        prototype: HTMLFnTagElement;
+        new (): HTMLFnTagElement;
+    };
     interface HTMLMyComponentElement extends Components.MyComponent, HTMLStencilElement {
     }
     var HTMLMyComponentElement: {
@@ -29,10 +53,23 @@ declare global {
         new (): HTMLMyComponentElement;
     };
     interface HTMLElementTagNameMap {
+        "fn-product-card": HTMLFnProductCardElement;
+        "fn-tag": HTMLFnTagElement;
         "my-component": HTMLMyComponentElement;
     }
 }
 declare namespace LocalJSX {
+    interface FnProductCard {
+        "code"?: string;
+        "image"?: string;
+        "name"?: string;
+        "price"?: ProductPrice;
+        "tags"?: [];
+    }
+    interface FnTag {
+        "isHighlight"?: boolean;
+        "nameTag"?: string;
+    }
     interface MyComponent {
         /**
           * The first name
@@ -48,6 +85,8 @@ declare namespace LocalJSX {
         "middle"?: string;
     }
     interface IntrinsicElements {
+        "fn-product-card": FnProductCard;
+        "fn-tag": FnTag;
         "my-component": MyComponent;
     }
 }
@@ -55,6 +94,8 @@ export { LocalJSX as JSX };
 declare module "@stencil/core" {
     export namespace JSX {
         interface IntrinsicElements {
+            "fn-product-card": LocalJSX.FnProductCard & JSXBase.HTMLAttributes<HTMLFnProductCardElement>;
+            "fn-tag": LocalJSX.FnTag & JSXBase.HTMLAttributes<HTMLFnTagElement>;
             "my-component": LocalJSX.MyComponent & JSXBase.HTMLAttributes<HTMLMyComponentElement>;
         }
     }

@@ -9,6 +9,39 @@
     <script nomodule src="/build/fauna.js"></script>
   </head>
   <body>
-    <my-component first="Stencil" last="'Don't call me a framework' JS"></my-component>
+    <fn-product-card
+      image="https://res.cloudinary.com/beleza-na-web/image/upload/w_1500,f_auto,fl_progressive,q_auto:eco,w_210,h_210/v1/imagens/products/B77149/Slide13.JPG"
+      code="Cod 000000"
+      name="Nativa SPA Trio de Sabonetes em Barra Açaí, Baunilha de Madagascar e Flor de Ameixa, 3x90g"
+    ></fn-product-card>
+
+    <script>
+      var tags = [
+        {
+          name: 'Promoção',
+          highlight: true,
+        },
+        {
+          name: 'Lançamento',
+          highlight: false,
+        },
+        {
+          name: 'Vegano',
+          highlight: false,
+        },
+        {
+          name: 'Beauty Week',
+          highlight: false,
+        },
+      ];
+      let productPrice = {
+        priceIs: "R$100,00",
+        priceWas: "R$150,00",
+        priceSaving: "R$50,00",
+      };
+      const ecommCard = document.querySelector('fn-product-card');
+      ecommCard.tags = tags;
+      ecommCard.price = productPrice;
+    </script>
   </body>
 </html>
