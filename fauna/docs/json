@@ -1,5 +1,5 @@
 {
-  "timestamp": "2020-10-31T23:52:44",
+  "timestamp": "2020-11-01T01:54:12",
   "compiler": {
     "name": "@stencil/core",
     "version": "2.2.0",
@@ -7,46 +7,14 @@
   },
   "components": [
     {
-      "filePath": "./src/components/fn-product-card/fn-product-card.tsx",
+      "filePath": "./src/components/fn-button/fn-button.tsx",
       "encapsulation": "shadow",
-      "tag": "fn-product-card",
-      "readme": "# fn-product-card\n\n\n",
+      "tag": "fn-button",
+      "readme": "# fn-button\n\n\n",
       "docs": "",
       "docsTags": [],
       "usage": {},
       "props": [
-        {
-          "name": "code",
-          "type": "string",
-          "mutable": false,
-          "attr": "code",
-          "reflectToAttr": false,
-          "docs": "",
-          "docsTags": [],
-          "values": [
-            {
-              "type": "string"
-            }
-          ],
-          "optional": false,
-          "required": false
-        },
-        {
-          "name": "image",
-          "type": "string",
-          "mutable": false,
-          "attr": "image",
-          "reflectToAttr": false,
-          "docs": "",
-          "docsTags": [],
-          "values": [
-            {
-              "type": "string"
-            }
-          ],
-          "optional": false,
-          "required": false
-        },
         {
           "name": "name",
           "type": "string",
@@ -62,13 +30,89 @@
           ],
           "optional": false,
           "required": false
+        }
+      ],
+      "methods": [],
+      "events": [],
+      "listeners": [],
+      "styles": [],
+      "slots": [],
+      "parts": [],
+      "dependents": [
+        "fn-product-card"
+      ],
+      "dependencies": [],
+      "dependencyGraph": {
+        "fn-product-card": [
+          "fn-button"
+        ]
+      }
+    },
+    {
+      "filePath": "./src/components/fn-product-card/fn-product-card.tsx",
+      "encapsulation": "shadow",
+      "tag": "fn-product-card",
+      "readme": "# fn-product-card\n\n\n",
+      "docs": "",
+      "docsTags": [],
+      "usage": {},
+      "props": [
+        {
+          "name": "code",
+          "type": "string",
+          "mutable": false,
+          "attr": "code",
+          "reflectToAttr": false,
+          "docs": "Product code",
+          "docsTags": [],
+          "default": "'000000'",
+          "values": [
+            {
+              "type": "string"
+            }
+          ],
+          "optional": false,
+          "required": false
+        },
+        {
+          "name": "image",
+          "type": "string",
+          "mutable": false,
+          "attr": "image",
+          "reflectToAttr": false,
+          "docs": "Product image URL",
+          "docsTags": [],
+          "values": [
+            {
+              "type": "string"
+            }
+          ],
+          "optional": false,
+          "required": false
+        },
+        {
+          "name": "name",
+          "type": "string",
+          "mutable": false,
+          "attr": "name",
+          "reflectToAttr": false,
+          "docs": "Product name",
+          "docsTags": [],
+          "default": "''",
+          "values": [
+            {
+              "type": "string"
+            }
+          ],
+          "optional": false,
+          "required": false
         },
         {
           "name": "price",
           "type": "ProductPrice",
           "mutable": false,
           "reflectToAttr": false,
-          "docs": "",
+          "docs": "Product price object",
           "docsTags": [],
           "values": [
             {
@@ -80,15 +124,14 @@
         },
         {
           "name": "tags",
-          "type": "[]",
+          "type": "ProductTag[]",
           "mutable": false,
           "reflectToAttr": false,
-          "docs": "",
+          "docs": "Product tags",
           "docsTags": [],
-          "default": "[]",
           "values": [
             {
-              "type": "[]"
+              "type": "ProductTag[]"
             }
           ],
           "optional": false,
@@ -103,11 +146,13 @@
       "parts": [],
       "dependents": [],
       "dependencies": [
-        "fn-tag"
+        "fn-tag",
+        "fn-button"
       ],
       "dependencyGraph": {
         "fn-product-card": [
-          "fn-tag"
+          "fn-tag",
+          "fn-button"
         ]
       }
     },

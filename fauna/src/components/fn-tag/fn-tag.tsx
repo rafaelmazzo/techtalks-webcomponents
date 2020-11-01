@@ -3,6 +3,11 @@ import { Component, Host, h, Prop } from '@stencil/core';
 @Component({
   tag: 'fn-tag',
   styleUrl: 'fn-tag.css',
+  styleUrls:{
+    default:'themes/default.css',
+    eudora:'themes/eudora.css',
+    boticario: 'themes/boticario.css'
+  },
   shadow: true,
 })
 export class FnTag {

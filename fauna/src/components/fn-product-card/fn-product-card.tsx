@@ -1,10 +1,20 @@
 import { Component, Host, h, Prop } from '@stencil/core';
 
+/**
+  * Product interface
+  */
 export interface ProductPrice {
   priceIs: string,
   priceWas: string,
   priceSaving: string
 };
+
+export interface ProductTag {
+  name: string,
+  highlight: boolean
+}
+const fontCssUrl = 'https://fonts.googleapis.com/css2?family=Open+Sans&display=swap';
+
 
 @Component({
   tag: 'fn-product-card',
@@ -14,11 +24,30 @@ export interface ProductPrice {
 
 export class FnProductCard {
 
+  /**
+   * Product image URL
+   */
   @Prop() image: string;
-  @Prop() code: string;
-  @Prop() name: string;
+
+  /**
+   * Product code
+   */
+  @Prop() code: string = '000000';
+
+  /**
+   * Product name
+   */
+  @Prop() name: string = '';
+
+  /**
+   * Product price object
+   */
   @Prop() price: ProductPrice;
-  @Prop() tags: [] = [];
+
+  /**
+   * Product tags
+   */
+  @Prop() tags: ProductTag[];
 
   private getproductCode(): string {
     return this.code;
@@ -30,7 +59,17 @@ export class FnProductCard {
     return this.image;
   }
   componentDidLoad() {
-    console.log('Componente FnProductCard carregou')
+    console.log('Componente FnProductCard carregou');
+    // Add custom font to page DOM since font-face doesn't work within Shadow DOM.
+    let element = document.querySelector(`link[href="${fontCssUrl}"]`);
+
+    // Only inject the element if it's not yet present
+    if (!element) {
+      element = document.createElement('link');
+      element.setAttribute('rel', 'stylesheet');
+      element.setAttribute('href', fontCssUrl);
+      document.head.appendChild(element);
+    }
   }
 
   render() {
@@ -52,12 +91,13 @@ export class FnProductCard {
               )}
             </div>
             <div class='product-price-container'>
-            <p class='price-was'>De <span class='price-was-value'>{this.price.priceWas}</span> por</p>
-            <p class='price-is'>{this.price.priceIs}</p>
-            <p class='price-saving'>Economize: {this.price.priceSaving}</p>
+              <p class='price-was'>De <span class='price-was-value'>{this.price.priceWas}</span> por</p>
+              <p class='price-is'>{this.price.priceIs}</p>
+              <p class='price-saving'>Economize: {this.price.priceSaving}</p>
             </div>
           </div>
-          <a href='#' class='add-cart-btn'>Incluir</a>
+          <fn-button name="Incluir"></fn-button>
+          {/* <a href='#' class='add-cart-btn'>Incluir</a> */}
         </div>
       </Host>
     );

@@ -1,0 +1,6 @@
+@import '../fn-button.css';
+
+button{
+  background: linear-gradient(266.86deg, #E0BF6B 0%, #C89A41 100%);
+  color: #ffffff;
+}

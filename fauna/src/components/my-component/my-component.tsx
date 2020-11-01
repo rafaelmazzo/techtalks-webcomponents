@@ -22,11 +22,24 @@ export class MyComponent {
    */
   @Prop() last: string;
 
+  // Lifecycle Methods
+  componentWillLoad(){}
+  componentDidLoad(){}
+  componentWillRender(){}
+  componentWillUpdate(){}
+  componentDidUpdate(){}
+
+
+
   private getText(): string {
     return format(this.first, this.middle, this.last);
   }
 
   render() {
-    return <div>Hello, World! I'm {this.getText()}</div>;
+    return (
+      <div>
+        Hello, World! I'm {this.getText()}
+      </div>
+    );
   }
 }

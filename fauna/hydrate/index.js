@@ -4643,7 +4643,12 @@ function hydrateFactory($stencilWindow, $stencilHydrateOpts, $stencilHydrateResu
 
 
 const NAMESPACE = 'fauna';
-const BUILD = /* fauna */ { allRenderFn: true, appendChildSlotFix: false, asyncLoading: true, attachStyles: true, cloneNodeFix: false, cmpDidLoad: true, cmpDidRender: false, cmpDidUnload: false, cmpDidUpdate: false, cmpShouldUpdate: false, cmpWillLoad: false, cmpWillRender: false, cmpWillUpdate: false, connectedCallback: false, constructableCSS: false, cssAnnotations: true, cssVarShim: false, devTools: false, disconnectedCallback: false, dynamicImportShim: false, element: false, event: false, hasRenderFn: true, hostListener: false, hostListenerTarget: false, hostListenerTargetBody: false, hostListenerTargetDocument: false, hostListenerTargetParent: false, hostListenerTargetWindow: false, hotModuleReplacement: false, hydrateClientSide: true, hydrateServerSide: true, hydratedAttribute: false, hydratedClass: true, isDebug: false, isDev: false, isTesting: false, lazyLoad: true, lifecycle: true, lifecycleDOMEvents: false, member: true, method: false, mode: false, observeAttribute: true, profile: false, prop: true, propBoolean: true, propMutable: false, propNumber: false, propString: true, reflect: false, safari10: false, scoped: false, scriptDataOpts: false, shadowDelegatesFocus: false, shadowDom: true, shadowDomShim: true, slot: false, slotChildNodesFix: false, slotRelocation: true, state: false, style: true, svg: false, taskQueue: true, updatable: true, vdomAttribute: true, vdomClass: true, vdomFunctional: false, vdomKey: false, vdomListener: false, vdomPropOrAttr: true, vdomRef: false, vdomRender: true, vdomStyle: false, vdomText: true, vdomXlink: false, watchCallback: false };
+const BUILD = /* fauna */ { allRenderFn: true, appendChildSlotFix: false, asyncLoading: true, attachStyles: true, cloneNodeFix: false, cmpDidLoad: true, cmpDidRender: false, cmpDidUnload: false, cmpDidUpdate: true, cmpShouldUpdate: false, cmpWillLoad: true, cmpWillRender: true, cmpWillUpdate: true, connectedCallback: false, constructableCSS: false, cssAnnotations: true, cssVarShim: false, devTools: false, disconnectedCallback: false, dynamicImportShim: false, element: false, event: false, hasRenderFn: true, hostListener: false, hostListenerTarget: false, hostListenerTargetBody: false, hostListenerTargetDocument: false, hostListenerTargetParent: false, hostListenerTargetWindow: false, hotModuleReplacement: false, hydrateClientSide: true, hydrateServerSide: true, hydratedAttribute: false, hydratedClass: true, isDebug: false, isDev: false, isTesting: false, lazyLoad: true, lifecycle: true, lifecycleDOMEvents: false, member: true, method: false, mode: true, observeAttribute: true, profile: false, prop: true, propBoolean: true, propMutable: false, propNumber: false, propString: true, reflect: false, safari10: false, scoped: false, scriptDataOpts: false, shadowDelegatesFocus: false, shadowDom: true, shadowDomShim: true, slot: false, slotChildNodesFix: false, slotRelocation: true, state: false, style: true, svg: false, taskQueue: true, updatable: true, vdomAttribute: true, vdomClass: true, vdomFunctional: false, vdomKey: false, vdomListener: false, vdomPropOrAttr: true, vdomRef: false, vdomRender: true, vdomStyle: false, vdomText: true, vdomXlink: false, watchCallback: false };
+
+const themes = ['boticario', 'eudora'];
+const theme = document.documentElement.getAttribute('fn-theme') || 'default';
+setMode(() => (themes.includes(theme) ? theme : 'default'));
+console.log(theme);
 
 function componentOnReady() {
  return getHostRef(this).$onReadyPromise$;
@@ -4831,7 +4836,7 @@ const createTime = (e, t = "") => {
  let n = styles.get(e);
  n = t, styles.set(e, n);
 }, addStyle = (e, t, o, n) => {
- let s = getScopeId(t), l = styles.get(s);
+ let s = getScopeId(t, o), l = styles.get(s);
  if (e = 11 === e.nodeType ? e : doc, l) if ("string" == typeof l) {
   e = e.head || e;
   let o, a = rootAppliedStyles.get(e);
@@ -4846,11 +4851,11 @@ const createTime = (e, t = "") => {
  }
  return s;
 }, attachStyles = e => {
- const t = e.$cmpMeta$, o = e.$hostElement$, n = t.$flags$, s = createTime("attachStyles", t.$tagName$), l = addStyle( o.getRootNode(), t);
+ const t = e.$cmpMeta$, o = e.$hostElement$, n = t.$flags$, s = createTime("attachStyles", t.$tagName$), l = addStyle( o.getRootNode(), t, e.$modeName$);
   10 & n && (o["s-sc"] = l, 
  o.classList.add(l + "-h"), BUILD.scoped  ), 
  s();
-}, getScopeId = (e, t) => "sc-" + ( e.$tagName$), EMPTY_OBJ = {}, isComplexType = e => "object" == (e = typeof e) || "function" === e, isPromise = e => !!e && ("object" == typeof e || "function" == typeof e) && "function" == typeof e.then, h = (e, t, ...o) => {
+}, getScopeId = (e, t) => "sc-" + ( t && 32 & e.$flags$ ? e.$tagName$ + "-" + t : e.$tagName$), computeMode = e => modeResolutionChain.map((t => t(e))).find((e => !!e)), setMode = e => modeResolutionChain.push(e), EMPTY_OBJ = {}, isComplexType = e => "object" == (e = typeof e) || "function" === e, isPromise = e => !!e && ("object" == typeof e || "function" == typeof e) && "function" == typeof e.then, h = (e, t, ...o) => {
  let n = null, l = null, a = !1, r = !1, i = [];
  const d = t => {
   for (let o = 0; o < t.length; o++) n = t[o], Array.isArray(n) ? d(n) : null != n && "boolean" != typeof n && ((a = "function" != typeof e && !isComplexType(n)) ? n = String(n) : BUILD.isDev  , 
@@ -5018,7 +5023,8 @@ const createElm = (e, t, o, n) => {
 }, dispatchHooks = (e, t) => {
  const n = createTime("scheduleUpdate", e.$cmpMeta$.$tagName$), s =  e.$lazyInstance$ ;
  let l;
- return n(), then(l, (() => updateComponent(e, s, t)));
+ return t ? ( (l = safeCall(s, "componentWillLoad"))) : ( (l = safeCall(s, "componentWillUpdate"))),  (l = then(l, (() => safeCall(s, "componentWillRender")))), 
+ n(), then(l, (() => updateComponent(e, s, t)));
 }, updateComponent = async (e, t, o) => {
  const n = e.$hostElement$, s = createTime("update", e.$cmpMeta$.$tagName$), l = n["s-rc"];
   o && attachStyles(e);
@@ -5046,7 +5052,8 @@ const callRender = (e, t) => {
  return t;
 }, postUpdateComponent = e => {
  const t = e.$cmpMeta$.$tagName$, o = e.$hostElement$, n = createTime("postUpdate", t), s =  e.$lazyInstance$ , l = e.$ancestorComponent$;
- 64 & e.$flags$ ? (n()) : (e.$flags$ |= 64,  addHydratedFlag(o), 
+ 64 & e.$flags$ ? ( (safeCall(s, "componentDidUpdate"), 
+ BUILD.isDev ), n()) : (e.$flags$ |= 64,  addHydratedFlag(o), 
   (safeCall(s, "componentDidLoad"), 
  BUILD.isDev ), n(),  (e.$onReadyResolve$(o), l || appDidLoad())),  (e.$onRenderResolve$ && (e.$onRenderResolve$(), 
  e.$onRenderResolve$ = void 0), 512 & e.$flags$ && nextTick((() => scheduleUpdate(e, !1))), 
@@ -5178,7 +5185,8 @@ const callRender = (e, t) => {
   }
   if ( s.style) {
    let n = s.style;
-   const l = getScopeId(o);
+    "string" != typeof n && (n = n[t.$modeName$ = computeMode(e)],  t.$modeName$ && e.setAttribute("s-mode", t.$modeName$));
+   const l = getScopeId(o, t.$modeName$);
    if (!styles.has(l)) {
     const e = createTime("registerStyles", o.$tagName$);
     registerStyle(l, n), e();
@@ -5354,14 +5362,58 @@ const callRender = (e, t) => {
  };
  return o.$onInstancePromise$ = new Promise((e => o.$onInstanceResolve$ = e)), o.$onReadyPromise$ = new Promise((e => o.$onReadyResolve$ = e)), 
  e["s-p"] = [], e["s-rc"] = [], hostRefs.set(e, o);
-}, styles = new Map;
+}, styles = new Map, modeResolutionChain = [];
+
+const fnButtonCss = "/*!@:host*/.sc-fn-button-h{display:block}/*!@button*/button.sc-fn-button{font-family:'Open Sans', sans-serif;border:none;width:100%;padding:8px 0;text-align:center;background:#6f42b6;border-radius:4px;color:#ffffff;font-size:14px;line-height:normal;text-decoration:none}";
+
+const boticarioCss = "/*!@:host*/.sc-fn-button-boticario-h{display:block}/*!@button*/button.sc-fn-button-boticario{font-family:'Open Sans', sans-serif;border:none;width:100%;padding:8px 0;text-align:center;background:#6f42b6;border-radius:4px;color:#ffffff;font-size:14px;line-height:normal;text-decoration:none}/*!@button*/button.sc-fn-button-boticario{background:#499D71;color:#ffffff}";
+
+const defaultCss = "/*!@:host*/.sc-fn-button-default-h{display:block}/*!@button*/button.sc-fn-button-default{font-family:'Open Sans', sans-serif;border:none;width:100%;padding:8px 0;text-align:center;background:#6f42b6;border-radius:4px;color:#ffffff;font-size:14px;line-height:normal;text-decoration:none}/*!@button*/button.sc-fn-button-default{background:#6F42B6;color:#ffffff}";
+
+const eudoraCss = "/*!@:host*/.sc-fn-button-eudora-h{display:block}/*!@button*/button.sc-fn-button-eudora{font-family:'Open Sans', sans-serif;border:none;width:100%;padding:8px 0;text-align:center;background:#6f42b6;border-radius:4px;color:#ffffff;font-size:14px;line-height:normal;text-decoration:none}/*!@button*/button.sc-fn-button-eudora{background:linear-gradient(266.86deg, #E0BF6B 0%, #C89A41 100%);color:#ffffff}";
+
+class FnButton {
+  constructor(hostRef) {
+    registerInstance(this, hostRef);
+  }
+  getButtonName() {
+    return this.name;
+  }
+  render() {
+    return (hAsync(Host, null, hAsync("button", null, this.getButtonName())));
+  }
+  static get style() { return {
+    $: fnButtonCss,
+    boticario: boticarioCss,
+    default: defaultCss,
+    eudora: eudoraCss
+  }; }
+  static get cmpMeta() { return {
+    "$flags$": 41,
+    "$tagName$": "fn-button",
+    "$members$": {
+      "name": [1]
+    },
+    "$listeners$": undefined,
+    "$lazyBundleId$": "-",
+    "$attrsToReflect$": []
+  }; }
+}
 
 const fnProductCardCss = "/*!@:host*/.sc-fn-product-card-h{display:block}/*!@**/*.sc-fn-product-card{margin:0;padding:0;line-height:normal}/*!@.card-container*/.card-container.sc-fn-product-card{display:flex;flex-direction:column;padding:16px;margin:8px;position:static;width:176px;min-height:390px;background:#ffffff;border:1px solid #cccccc;border-radius:4px}/*!@.img-container img*/.img-container.sc-fn-product-card img.sc-fn-product-card{width:100%}/*!@.product-description-wrapper*/.product-description-wrapper.sc-fn-product-card{width:100%;margin:8px 0}/*!@.product-code*/.product-code.sc-fn-product-card{font-family:'Open Sans', sans-serif;font-weight:300;font-size:10px;line-height:16px;display:block;margin-bottom:4px}/*!@.product-name*/.product-name.sc-fn-product-card{font-family:'Open Sans', sans-serif;font-style:normal;font-weight:normal;font-size:14px;line-height:16px;margin:0;padding:0;color:#333;text-decoration:none}/*!@.product-name:hover*/.product-name.sc-fn-product-card:hover{text-decoration:underline;color:#499D71}/*!@.tags-container*/.tags-container.sc-fn-product-card{display:flex;flex-direction:row;flex-wrap:wrap;margin:8px 0}/*!@.product-price-container*/.product-price-container.sc-fn-product-card{margin:8px 0}/*!@.price-was*/.price-was.sc-fn-product-card{font-family:'Open Sans', sans-serif;font-weight:normal;font-size:12px;line-height:16px;color:#515151}/*!@.price-was-value*/.price-was-value.sc-fn-product-card{text-decoration:line-through}/*!@.price-is*/.price-is.sc-fn-product-card{font-family:'Open Sans', sans-serif;font-style:normal;font-weight:600;font-size:24px;line-height:32px;color:#000000}/*!@.price-saving*/.price-saving.sc-fn-product-card{font-family:'Open Sans', sans-serif;font-style:normal;font-weight:normal;font-size:10px;line-height:16px;color:#515151}/*!@.add-cart-btn*/.add-cart-btn.sc-fn-product-card{font-family:'Open Sans', sans-serif;display:block;width:100%;flex-direction:column;align-items:flex-start;padding:8px 0;text-align:center;background:#6f42b6;border-radius:4px;color:#ffffff;font-size:14px;line-height:normal;text-decoration:none}";
 
+const fontCssUrl = 'https://fonts.googleapis.com/css2?family=Open+Sans&display=swap';
 class FnProductCard {
   constructor(hostRef) {
     registerInstance(this, hostRef);
-    this.tags = [];
+    /**
+     * Product code
+     */
+    this.code = '000000';
+    /**
+     * Product name
+     */
+    this.name = '';
   }
   getproductCode() {
     return this.code;
@@ -5374,11 +5426,20 @@ class FnProductCard {
   }
   componentDidLoad() {
     console.log('Componente FnProductCard carregou');
+    // Add custom font to page DOM since font-face doesn't work within Shadow DOM.
+    let element = document.querySelector(`link[href="${fontCssUrl}"]`);
+    // Only inject the element if it's not yet present
+    if (!element) {
+      element = document.createElement('link');
+      element.setAttribute('rel', 'stylesheet');
+      element.setAttribute('href', fontCssUrl);
+      document.head.appendChild(element);
+    }
   }
   render() {
     return (hAsync(Host, null, hAsync("div", { class: 'card-container' }, hAsync("div", { class: 'img-container' }, hAsync("img", { src: this.getProductImageURL() })), hAsync("div", { class: 'product-description-wrapper' }, hAsync("span", { class: 'product-code' }, this.getproductCode()), hAsync("a", { href: "#", class: "product-name" }, this.getproductName()), hAsync("div", { class: 'tags-container' }, this.tags.map(({ name, highlight }) => {
       return (hAsync("fn-tag", { "is-highlight": highlight, "name-tag": name }));
-    })), hAsync("div", { class: 'product-price-container' }, hAsync("p", { class: 'price-was' }, "De ", hAsync("span", { class: 'price-was-value' }, this.price.priceWas), " por"), hAsync("p", { class: 'price-is' }, this.price.priceIs), hAsync("p", { class: 'price-saving' }, "Economize: ", this.price.priceSaving))), hAsync("a", { href: '#', class: 'add-cart-btn' }, "Incluir"))));
+    })), hAsync("div", { class: 'product-price-container' }, hAsync("p", { class: 'price-was' }, "De ", hAsync("span", { class: 'price-was-value' }, this.price.priceWas), " por"), hAsync("p", { class: 'price-is' }, this.price.priceIs), hAsync("p", { class: 'price-saving' }, "Economize: ", this.price.priceSaving))), hAsync("fn-button", { name: "Incluir" }))));
   }
   static get style() { return fnProductCardCss; }
   static get cmpMeta() { return {
@@ -5397,7 +5458,13 @@ class FnProductCard {
   }; }
 }
 
-const fnTagCss = "/*!@:host*/.sc-fn-tag-h{display:block}/*!@.tag*/.tag.sc-fn-tag{font-family:'Roboto', sans-serif;font-style:normal;font-weight:normal;font-size:10px;line-height:16px;display:flexbox;width:auto;border:1px solid #ed676d;border-radius:4px;padding:0 4px;color:#ed676d;margin:2px}/*!@.tag-highlight*/.tag-highlight.sc-fn-tag{background-color:#ed676d;color:#ffffff}";
+const fnTagCss = "/*!@:host*/.sc-fn-tag-h{display:block}/*!@.tag*/.tag.sc-fn-tag{font-family:'Roboto', sans-serif;font-style:normal;font-weight:normal;font-size:10px;line-height:16px;display:flexbox;width:auto;border-radius:4px;padding:0 4px;margin:2px}";
+
+const boticarioCss$1 = "/*!@:host*/.sc-fn-tag-boticario-h{display:block}/*!@.tag*/.tag.sc-fn-tag-boticario{font-family:'Roboto', sans-serif;font-style:normal;font-weight:normal;font-size:10px;line-height:16px;display:flexbox;width:auto;border-radius:4px;padding:0 4px;margin:2px}/*!@.tag*/.tag.sc-fn-tag-boticario{border:1px solid #007E78;color:#007E78}/*!@.tag-highlight*/.tag-highlight.sc-fn-tag-boticario{background-color:#007E78;color:#ffffff}";
+
+const defaultCss$1 = "/*!@:host*/.sc-fn-tag-default-h{display:block}/*!@.tag*/.tag.sc-fn-tag-default{font-family:'Roboto', sans-serif;font-style:normal;font-weight:normal;font-size:10px;line-height:16px;display:flexbox;width:auto;border-radius:4px;padding:0 4px;margin:2px}/*!@.tag*/.tag.sc-fn-tag-default{border:1px solid #ed676d;color:#ed676d}/*!@.tag-highlight*/.tag-highlight.sc-fn-tag-default{background-color:#ed676d;color:#ffffff}";
+
+const eudoraCss$1 = "/*!@:host*/.sc-fn-tag-eudora-h{display:block}/*!@.tag*/.tag.sc-fn-tag-eudora{font-family:'Roboto', sans-serif;font-style:normal;font-weight:normal;font-size:10px;line-height:16px;display:flexbox;width:auto;border-radius:4px;padding:0 4px;margin:2px}/*!@.tag*/.tag.sc-fn-tag-eudora{border:1px solid #6F42B6;color:#6F42B6}/*!@.tag-highlight*/.tag-highlight.sc-fn-tag-eudora{background-color:#6F42B6;color:#ffffff}";
 
 class FnTag {
   constructor(hostRef) {
@@ -5415,9 +5482,14 @@ class FnTag {
   render() {
     return (hAsync(Host, null, hAsync("span", { class: this.getTagHighlight() ? 'tag tag-highlight' : 'tag' }, this.getTagName())));
   }
-  static get style() { return fnTagCss; }
+  static get style() { return {
+    $: fnTagCss,
+    boticario: boticarioCss$1,
+    default: defaultCss$1,
+    eudora: eudoraCss$1
+  }; }
   static get cmpMeta() { return {
-    "$flags$": 9,
+    "$flags$": 41,
     "$tagName$": "fn-tag",
     "$members$": {
       "nameTag": [1, "name-tag"],
@@ -5439,11 +5511,17 @@ class MyComponent {
   constructor(hostRef) {
     registerInstance(this, hostRef);
   }
+  // Lifecycle Methods
+  componentWillLoad() { }
+  componentDidLoad() { }
+  componentWillRender() { }
+  componentWillUpdate() { }
+  componentDidUpdate() { }
   getText() {
     return format(this.first, this.middle, this.last);
   }
   render() {
-    return hAsync("div", null, "Hello, World! I'm ", this.getText());
+    return (hAsync("div", null, "Hello, World! I'm ", this.getText()));
   }
   static get style() { return myComponentCss; }
   static get cmpMeta() { return {
@@ -5461,6 +5539,7 @@ class MyComponent {
 }
 
 registerComponents([
+  FnButton,
   FnProductCard,
   FnTag,
   MyComponent,

@@ -1,0 +1,10 @@
+@import '../fn-tag.css';
+
+.tag {
+  border: 1px solid #6F42B6;
+  color: #6F42B6;
+}
+.tag-highlight {
+  background-color: #6F42B6;
+  color: #ffffff;
+}
