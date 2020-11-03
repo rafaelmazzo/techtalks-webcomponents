@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html dir="ltr" lang="en" fn-theme="eudora">
+<html dir="ltr" lang="en" fn-theme="boticario">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=5.0" />
@@ -9,13 +9,34 @@
     <script nomodule src="/build/fauna.js"></script>
   </head>
   <body>
-    <fn-product-card
-      image="https://res.cloudinary.com/beleza-na-web/image/upload/w_1500,f_auto,fl_progressive,q_auto:eco,w_210,h_210/v1/imagens/products/B77149/Slide13.JPG"
-      code="Cod 000000"
-      name="Nativa SPA Trio de Sabonetes em Barra Açaí, Baunilha de Madagascar e Flor de Ameixa, 3x90g"
-    ></fn-product-card>
+    <h1>Web Components com StencilJS</h1>
+    <h2>Tech Talks S03E04</h2>
+
+
+
+    <hr />
+    <h4>fn-button</h4>
+    <fn-button name="Meu Botão"></fn-button>
+
+
+
+    <hr />
+    <h4>fn-tag</h4>
+    <fn-tag name-tag="Minha tag supimpa"></fn-tag>
+    <fn-tag name-tag="Minha tag supimpa" is-highlight="true"></fn-tag>
+
+
+
+    <hr />
+    <h4>fn-product-card</h4>
+    <fn-product-card code="123456" name="Nativa SPA Trio de Sabonetes em Barra Açaí, Baunilha de Madagascar e Flor de Ameixa, 3x90g"></fn-product-card>
 
     <script>
+      var productImage = {
+        url: 'https://res.cloudinary.com/beleza-na-web/image/upload/w_1500,f_auto,fl_progressive,q_auto:eco,w_210,h_210/v1/imagens/products/B77149/Slide13.JPG',
+        alt: 'imagem-produto-nativa-spa',
+        title: 'Nativa Spa Trio de Sabonetes em Barra',
+      };
       var tags = [
         {
           name: 'Promoção',
@@ -35,13 +56,14 @@
         },
       ];
       let productPrice = {
-        priceIs: "R$100,00",
-        priceWas: "R$150,00",
-        priceSaving: "R$50,00",
+        priceIs: 'R$100,00',
+        priceWas: 'R$150,00',
+        priceSaving: 'R$50,00',
       };
       const ecommCard = document.querySelector('fn-product-card');
       ecommCard.tags = tags;
       ecommCard.price = productPrice;
+      ecommCard.image = productImage;
     </script>
   </body>
 </html>

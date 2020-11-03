@@ -5,9 +5,12 @@
  * It contains typing information for all components that exist in this project.
  */
 import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
-import { ProductPrice, ProductTag } from "./components/fn-product-card/fn-product-card";
+import { ProductImage, ProductPrice, ProductTag } from "./components/fn-product-card/fn-product-card";
 export namespace Components {
     interface FnButton {
+        /**
+          * button name
+         */
         "name": string;
     }
     interface FnProductCard {
@@ -18,7 +21,7 @@ export namespace Components {
         /**
           * Product image URL
          */
-        "image": string;
+        "image": ProductImage;
         /**
           * Product name
          */
@@ -35,20 +38,6 @@ export namespace Components {
     interface FnTag {
         "isHighlight": boolean;
         "nameTag": string;
-    }
-    interface MyComponent {
-        /**
-          * The first name
-         */
-        "first": string;
-        /**
-          * The last name
-         */
-        "last": string;
-        /**
-          * The middle name
-         */
-        "middle": string;
     }
 }
 declare global {
@@ -70,21 +59,17 @@ declare global {
         prototype: HTMLFnTagElement;
         new (): HTMLFnTagElement;
     };
-    interface HTMLMyComponentElement extends Components.MyComponent, HTMLStencilElement {
-    }
-    var HTMLMyComponentElement: {
-        prototype: HTMLMyComponentElement;
-        new (): HTMLMyComponentElement;
-    };
     interface HTMLElementTagNameMap {
         "fn-button": HTMLFnButtonElement;
         "fn-product-card": HTMLFnProductCardElement;
         "fn-tag": HTMLFnTagElement;
-        "my-component": HTMLMyComponentElement;
     }
 }
 declare namespace LocalJSX {
     interface FnButton {
+        /**
+          * button name
+         */
         "name"?: string;
     }
     interface FnProductCard {
@@ -95,11 +80,12 @@ declare namespace LocalJSX {
         /**
           * Product image URL
          */
-        "image"?: string;
+        "image"?: ProductImage;
         /**
           * Product name
          */
         "name"?: string;
+        "onAddToCart"?: (event: CustomEvent<any>) => void;
         /**
           * Product price object
          */
@@ -113,25 +99,10 @@ declare namespace LocalJSX {
         "isHighlight"?: boolean;
         "nameTag"?: string;
     }
-    interface MyComponent {
-        /**
-          * The first name
-         */
-        "first"?: string;
-        /**
-          * The last name
-         */
-        "last"?: string;
-        /**
-          * The middle name
-         */
-        "middle"?: string;
-    }
     interface IntrinsicElements {
         "fn-button": FnButton;
         "fn-product-card": FnProductCard;
         "fn-tag": FnTag;
-        "my-component": MyComponent;
     }
 }
 export { LocalJSX as JSX };
@@ -141,7 +112,6 @@ declare module "@stencil/core" {
             "fn-button": LocalJSX.FnButton & JSXBase.HTMLAttributes<HTMLFnButtonElement>;
             "fn-product-card": LocalJSX.FnProductCard & JSXBase.HTMLAttributes<HTMLFnProductCardElement>;
             "fn-tag": LocalJSX.FnTag & JSXBase.HTMLAttributes<HTMLFnTagElement>;
-            "my-component": LocalJSX.MyComponent & JSXBase.HTMLAttributes<HTMLMyComponentElement>;
         }
     }
 }

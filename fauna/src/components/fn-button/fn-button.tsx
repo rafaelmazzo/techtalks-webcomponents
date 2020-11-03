@@ -1,29 +1,29 @@
-import { Component, Host, h, Prop } from '@stencil/core';
+import { Component, h, Prop, Host } from '@stencil/core';
 
 @Component({
   tag: 'fn-button',
   styleUrl: 'fn-button.css',
-  styleUrls:{
+  styleUrls: {
     default: 'themes/default.css',
-    eudora:'themes/eudora.css',
+    eudora: 'themes/eudora.css',
     boticario: 'themes/boticario.css'
   },
   shadow: true,
 })
 export class FnButton {
 
-  @Prop() name:string;
+  /** button name */
+  @Prop() name: string;
 
-  private getButtonName(){
+  private getButtonName() {
     return this.name;
   }
 
   render() {
     return (
       <Host>
-       <button>{this.getButtonName()}</button>
+        <button>{this.getButtonName()}</button>
       </Host>
     );
   }
-
 }

@@ -10,10 +10,17 @@
 | Property | Attribute | Description          | Type           | Default     |
 | -------- | --------- | -------------------- | -------------- | ----------- |
 | `code`   | `code`    | Product code         | `string`       | `'000000'`  |
-| `image`  | `image`   | Product image URL    | `string`       | `undefined` |
+| `image`  | --        | Product image URL    | `ProductImage` | `undefined` |
 | `name`   | `name`    | Product name         | `string`       | `''`        |
 | `price`  | --        | Product price object | `ProductPrice` | `undefined` |
 | `tags`   | --        | Product tags         | `ProductTag[]` | `undefined` |
+
+
+## Events
+
+| Event       | Description | Type               |
+| ----------- | ----------- | ------------------ |
+| `addToCart` |             | `CustomEvent<any>` |
 
 
 ## Dependencies

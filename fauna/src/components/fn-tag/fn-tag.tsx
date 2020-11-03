@@ -12,7 +12,7 @@ import { Component, Host, h, Prop } from '@stencil/core';
 })
 export class FnTag {
   @Prop() nameTag: string;
-  @Prop() isHighlight: boolean;
+  @Prop() isHighlight: boolean = false;
 
   getTagName() {
     return this.nameTag;
@@ -21,7 +21,6 @@ export class FnTag {
     return this.isHighlight;
   }
   componentDidLoad() {
-    console.log('Componente FnTag carregou')
   }
   render() {
     return (

@@ -9,7 +9,7 @@
 
 | Property      | Attribute      | Description | Type      | Default     |
 | ------------- | -------------- | ----------- | --------- | ----------- |
-| `isHighlight` | `is-highlight` |             | `boolean` | `undefined` |
+| `isHighlight` | `is-highlight` |             | `boolean` | `false`     |
 | `nameTag`     | `name-tag`     |             | `string`  | `undefined` |
 
 
